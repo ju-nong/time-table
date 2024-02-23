@@ -21,10 +21,11 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
+import { DateConfig } from "../types";
 
 const emits = defineEmits(["onChange"]);
 
-const config = reactive({
+const config = reactive<DateConfig>({
     start: "",
     end: "",
 });
