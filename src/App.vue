@@ -1,17 +1,19 @@
 <template>
-    <div>
+    <!-- <div>
         <DatePicker @onChange="handleChange" />
         <DateViewer :list="dayList" @onClick="handleClick" />
 
         <h3>근무일 {{ workConfig.workDay }}</h3>
         <h3>공수 {{ workConfig.workMan }}</h3>
-    </div>
+    </div> -->
+
+    <DateChart />
 </template>
 
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
 
-import { DatePicker, DateViewer } from "./components";
+import { DatePicker, DateViewer, DateChart } from "./components";
 
 import { DateConfig, DayKor, DayElement } from "./types";
 

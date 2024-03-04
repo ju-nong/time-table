@@ -11,4 +11,35 @@ type DayElement = {
     active: boolean;
 };
 
-export type { DateConfig, DayKor, DayElement };
+type WeekToMonthConfig = {
+    year: number;
+    month: number;
+    weeks: number[];
+};
+
+type WeekToMonthConfig2 = {
+    year: number;
+    month: number;
+    weeks: WeekConfig[];
+};
+
+type WeekConfig = {
+    week: number;
+    list: AllDateConfig[];
+};
+
+type AllDateConfig = {
+    year: number;
+    month: number;
+    date: number;
+};
+
+export type {
+    DateConfig,
+    DayKor,
+    DayElement,
+    WeekToMonthConfig,
+    WeekToMonthConfig2,
+    WeekConfig,
+    AllDateConfig,
+};
