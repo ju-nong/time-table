@@ -29,13 +29,14 @@ import { WeekToMonthConfig2, WeekConfig, AllDateConfig } from "../types";
 // 2024-09-01
 // 2024-09-30
 
-const startDate = ref(new Date("2024-09-01"));
+const startDate = ref(new Date("2024-01-01"));
 const startYear = computed(() => startDate.value.getFullYear());
 const startMonth = computed(() => startDate.value.getMonth());
 
 const firstDate = computed(() => new Date(startYear.value, startMonth.value));
 
-const endDate = ref(new Date("2024-09-30"));
+const endDate = ref(new Date("2024-03-04"));
+const endYear = computed(() => endDate.value.getFullYear());
 const endMonth = computed(() => endDate.value.getMonth());
 
 const dateList = ref<WeekToMonthConfig2[]>([]);
@@ -164,6 +165,41 @@ function setDateList() {
         }
 
         cloneFirstDate.setDate(date + 1);
+    }
+
+    afterSetDateList();
+}
+
+function afterSetDateList() {
+    const day = endDate.value.getDay();
+    const { year, month } = dateList.value.at(-1)!;
+
+    if (day > 0 && day < 4) {
+        if (!(year === endYear.value && month === endMonth.value)) {
+            dateList.value.push({
+                year,
+                month,
+                weeks: [],
+            });
+        }
+
+        let week = dateList.value.at(-1)?.weeks.length + 1;
+
+        const cloneEndDate = endDate.value;
+        cloneEndDate.setDate(cloneEndDate.getDate() - (day - 1));
+
+        const list: AllDateConfig[] = [getAllDateConfigElement(cloneEndDate)];
+
+        for (let i = 0; i < 4; i++) {
+            cloneEndDate.setDate(cloneEndDate.getDate() + 1);
+
+            list.push(getAllDateConfigElement(cloneEndDate));
+        }
+
+        dateList.value.at(-1)?.weeks.push({
+            week,
+            list,
+        });
     }
 }
 
